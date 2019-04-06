@@ -23,5 +23,38 @@ public class Logs implements Serializable, PropertyChangeListener{
 		this.maplogs.put(e.getPropertyName(), this.logs);
 	}
 	
+	public ArrayList<UserLog> getSentenceFromDatabaseAndUser(String database, String user){
+		ArrayList<UserLog> u = this.maplogs.get(database);
+		ArrayList<UserLog> u2 = new ArrayList<UserLog>();
+		for (UserLog userLog : u) {
+			if(userLog.getUsername().equals(user)) {
+				u2.add(userLog);
+			}
+		}
+		return u2;
+	}
+	
+	public ArrayList<UserLog> getSentence(String database, String user, String type){
+		ArrayList<UserLog> u = this.maplogs.get(database);
+		ArrayList<UserLog> u2 = new ArrayList<UserLog>();
+		for (UserLog userLog : u) {
+			if(userLog.getUsername().equals(user) && userLog.getTquery().equalsIgnoreCase(type)) {
+				u2.add(userLog);
+			}
+		}
+		return u2;
+	}
+
+	public ArrayList<UserLog> getSentenceFromDatabaseAndType(String database, String type) {
+		ArrayList<UserLog> u = this.maplogs.get(database);
+		ArrayList<UserLog> u2 = new ArrayList<UserLog>();
+		for (UserLog userLog : u) {
+			if(userLog.getTquery().equalsIgnoreCase(type)) {
+				u2.add(userLog);
+			}
+		}
+		return u2;
+	}
+	
 	
 }

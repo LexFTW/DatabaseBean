@@ -20,12 +20,14 @@ import models.UserLog;
 public class MySQL implements Serializable, IConnection{
 
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	private String url, user, password;
+	private String ip, port, database, user, password;
 	private EntityManagerFactory emf;
 	private EntityManager em;
 	
 	public MySQL() {
-		this.url = "localhost:3306/forhonor";
+		this.ip = "localhost";
+		this.port = "3306";
+		this.database = "forhonor";
 		this.user = "root";
 		this.password = "";
 		
@@ -37,8 +39,10 @@ public class MySQL implements Serializable, IConnection{
 		
 	}
 
-	public MySQL(String url, String user, String password) {
-		this.url = url;
+	public MySQL(String ip, String port, String database, String user, String password) {
+		this.ip = ip;
+		this.port = port;
+		this.database = database;
 		this.user = user;
 		this.password = password;
 		
@@ -52,7 +56,7 @@ public class MySQL implements Serializable, IConnection{
 
 	public boolean connection() {
 		Map<String, String> persistenceMap = new HashMap<String, String>();
-		persistenceMap.put("javax.persistence.jdbc.url", "jdbc:mysql://"+this.url+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+		persistenceMap.put("javax.persistence.jdbc.url", "jdbc:mysql://"+this.ip+":"+this.port+"/"+this.database+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 		persistenceMap.put("javax.persistence.jdbc.user", this.user);
 		persistenceMap.put("javax.persistence.jdbc.password", this.password);
 		persistenceMap.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
@@ -79,7 +83,7 @@ public class MySQL implements Serializable, IConnection{
 			userlog.setHexecute(Calendar.getInstance());
 			userlog.setTquery("INSERT");
 			userlog.setNumRegis(result);
-			this.pcs.firePropertyChange(this.url, null, userlog);
+			this.pcs.firePropertyChange(this.database, null, userlog);
 			return true;
 		}
 		
@@ -98,7 +102,7 @@ public class MySQL implements Serializable, IConnection{
 			userlog.setHexecute(Calendar.getInstance());
 			userlog.setTquery("DELETE");
 			userlog.setNumRegis(result);
-			this.pcs.firePropertyChange(this.url, null, userlog);
+			this.pcs.firePropertyChange(this.database, null, userlog);
 			return true;
 		}
 		
@@ -117,7 +121,7 @@ public class MySQL implements Serializable, IConnection{
 			userlog.setHexecute(Calendar.getInstance());
 			userlog.setTquery("UPDATE");
 			userlog.setNumRegis(result);
-			this.pcs.firePropertyChange(this.url, null, userlog);
+			this.pcs.firePropertyChange(this.database, null, userlog);
 			return true;
 		}
 		
