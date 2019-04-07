@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class UserLog{
 
-	private String username, tquery;
+	private String username, tquery, sentence;
 	private int numRegis;
 	private Calendar hexecute;
 	
@@ -16,12 +16,13 @@ public class UserLog{
 	}
 	
 
-	public UserLog(String username, String tquery, int numRegis, Calendar hexecute) {
+	public UserLog(String username, String tquery, String sentence, int numRegis, Calendar hexecute) {
 		super();
 		this.username = username;
 		this.tquery = tquery;
 		this.numRegis = numRegis;
 		this.hexecute = hexecute;
+		this.sentence = sentence;
 	}
 
 
@@ -32,13 +33,17 @@ public class UserLog{
 	public String getTquery() {
 		return tquery;
 	}
+	
+	public String getSentence() {
+		return sentence;
+	}
 
 	public int getNumRegis() {
 		return numRegis;
 	}
 
-	public Calendar getHexecute() {
-		return hexecute;
+	public String getHexecute() {
+		return hexecute.get(Calendar.HOUR_OF_DAY) + ":" + hexecute.get(Calendar.MINUTE) + ":" + hexecute.get(Calendar.SECOND) + " " + hexecute.get(Calendar.DAY_OF_MONTH) + "/" + hexecute.get(Calendar.MONTH) + "/" + hexecute.get(Calendar.YEAR);
 	}
 
 	public void setUsername(String username) {
@@ -47,6 +52,10 @@ public class UserLog{
 
 	public void setTquery(String tquery) {
 		this.tquery = tquery;
+	}
+	
+	public void setSentence(String sentence) {
+		this.sentence = sentence;
 	}
 
 	public void setNumRegis(int numRegis) {
@@ -59,7 +68,7 @@ public class UserLog{
 
 	@Override
 	public String toString() {
-		return "UserLog [username=" + username + ", tquery=" + tquery + ", numRegis=" + numRegis + ", hexecute="
+		return "UserLog [username=" + username + ", tquery=" + tquery + ", sentence=" + sentence + ", numRegis=" + numRegis + ", hexecute="
 				+ hexecute.get(Calendar.HOUR_OF_DAY) + ":" + hexecute.get(Calendar.MINUTE) + ":" + hexecute.get(Calendar.SECOND) + " " + hexecute.get(Calendar.DAY_OF_MONTH) + "/" + hexecute.get(Calendar.MONTH) + "/" + hexecute.get(Calendar.YEAR)  + "]";
 	}
 

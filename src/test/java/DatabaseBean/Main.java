@@ -8,6 +8,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		MySQL mysql = new MySQL();
+		mysql.setDatabase("forhonor");
+		mysql.connection();
 		Logs log = new Logs();
 
 		mysql.addPropertyChangeListener(log);
@@ -19,7 +21,7 @@ public class Main {
 			System.err.println("[ERROR] - No se pudieron eliminar los datos.");
 		}
 
-//		mysql.callProcedure("call removeCharacter('B')");
+		mysql.callProcedure("call removeCharacter('B')");
 		mysql.close();
 		
 		System.out.println("Resultados de la búsqueda: " + log.getSentenceFromDatabaseAndUser("forhonor", "root"));

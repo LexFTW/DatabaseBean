@@ -27,16 +27,10 @@ public class MySQL implements Serializable, IConnection{
 	public MySQL() {
 		this.ip = "localhost";
 		this.port = "3306";
-		this.database = "forhonor";
+		this.database = "unknown";
 		this.user = "root";
 		this.password = "";
-		
-		if(!this.connection()) {
-			System.err.println("[ERROR] - No se pudo establecer conexión");
-		}else {
-			System.out.println("[INFO] - Conexión Establecida");
-		}
-		
+		System.out.println("[INFO] - Por defecto, se puso una base de datos desconocida, es recomendable que la introduzcas más adelante para su correcto funcionamiento.");
 	}
 
 	public MySQL(String ip, String port, String database, String user, String password) {
@@ -51,7 +45,6 @@ public class MySQL implements Serializable, IConnection{
 		}else {
 			System.out.println("[INFO] - Conexión Establecida");
 		}
-		
 	}
 
 	public boolean connection() {
@@ -83,6 +76,7 @@ public class MySQL implements Serializable, IConnection{
 			userlog.setHexecute(Calendar.getInstance());
 			userlog.setTquery("INSERT");
 			userlog.setNumRegis(result);
+			userlog.setSentence(query);
 			this.pcs.firePropertyChange(this.database, null, userlog);
 			return true;
 		}
@@ -102,6 +96,7 @@ public class MySQL implements Serializable, IConnection{
 			userlog.setHexecute(Calendar.getInstance());
 			userlog.setTquery("DELETE");
 			userlog.setNumRegis(result);
+			userlog.setSentence(query);
 			this.pcs.firePropertyChange(this.database, null, userlog);
 			return true;
 		}
@@ -121,6 +116,7 @@ public class MySQL implements Serializable, IConnection{
 			userlog.setHexecute(Calendar.getInstance());
 			userlog.setTquery("UPDATE");
 			userlog.setNumRegis(result);
+			userlog.setSentence(query);
 			this.pcs.firePropertyChange(this.database, null, userlog);
 			return true;
 		}
@@ -144,9 +140,50 @@ public class MySQL implements Serializable, IConnection{
 		return true;
 	}
 
+	
 	public void close() {
 		this.em.close();
 		this.emf.close();
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public String getDatabase() {
+		return database;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public void setDatabase(String database) {
+		this.database = database;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

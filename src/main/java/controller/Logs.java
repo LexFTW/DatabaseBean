@@ -23,34 +23,35 @@ public class Logs implements Serializable, PropertyChangeListener{
 		this.maplogs.put(e.getPropertyName(), this.logs);
 	}
 	
-	public ArrayList<UserLog> getSentenceFromDatabaseAndUser(String database, String user){
+	public ArrayList<String> getSentenceFromDatabaseAndUser(String database, String user){
 		ArrayList<UserLog> u = this.maplogs.get(database);
-		ArrayList<UserLog> u2 = new ArrayList<UserLog>();
+		ArrayList<String> u2 = new ArrayList<String>();
 		for (UserLog userLog : u) {
 			if(userLog.getUsername().equals(user)) {
-				u2.add(userLog);
+				u2.add(userLog.getSentence() + ", " + userLog.getHexecute() + ", " + userLog.getTquery() + " || ");
 			}
 		}
 		return u2;
 	}
 	
-	public ArrayList<UserLog> getSentence(String database, String user, String type){
+	public ArrayList<String> getSentence(String database, String user, String type){
 		ArrayList<UserLog> u = this.maplogs.get(database);
-		ArrayList<UserLog> u2 = new ArrayList<UserLog>();
+		ArrayList<String> u2 = new ArrayList<String>();
 		for (UserLog userLog : u) {
 			if(userLog.getUsername().equals(user) && userLog.getTquery().equalsIgnoreCase(type)) {
-				u2.add(userLog);
+				u2.add(userLog.getSentence() + ", " + userLog.getHexecute() + " || ");
 			}
 		}
 		return u2;
 	}
 
-	public ArrayList<UserLog> getSentenceFromDatabaseAndType(String database, String type) {
+	public ArrayList<String> getSentenceFromDatabaseAndType(String database, String type) {
 		ArrayList<UserLog> u = this.maplogs.get(database);
-		ArrayList<UserLog> u2 = new ArrayList<UserLog>();
+		ArrayList<String> u2 = new ArrayList<String>();
 		for (UserLog userLog : u) {
 			if(userLog.getTquery().equalsIgnoreCase(type)) {
-				u2.add(userLog);
+				System.out.println(userLog.getSentence());
+				u2.add(userLog.getSentence() + ", " + userLog.getHexecute() + ", " + userLog.getUsername() + " || ");
 			}
 		}
 		return u2;
